@@ -23,7 +23,21 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"]
+        use: [MiniCssExtractPlugin.loader,
+          "css-loader",
+          {
+            loader: 'postcss-loader',
+            options: {
+              function () {
+                return [
+                  require('precss'),
+                  require('autoprefixer')
+                ]
+              }
+            }
+          },
+          "sass-loader"
+        ]
       },
       {
         test: /\.js$/,
